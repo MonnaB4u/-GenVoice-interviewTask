@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './Login.css'
-function Login({ setShowLogin, setStoredName, data, setData, setIsAuthenticated,setStoredPassword }) {
+function Login({ setShowLogin, setStoredName, data, setData, setIsAuthenticated, setStoredPassword, isAuthenticated }) {
 
   const [currentState, setCurrentState] = useState("Sign Up");
   const [error, setError] = useState("");
- 
+
 
   const handleLogin = (e) => {
     let name = e.target.name;
@@ -15,10 +15,13 @@ function Login({ setShowLogin, setStoredName, data, setData, setIsAuthenticated,
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, password } = data;
-    if (name === "genvoice" && password === "GenVoice123!") {
+    const storedPassword = localStorage.getItem("password") || "GenVoice123!";
+
+    if (name === "genvoice" && password === storedPassword) {
       localStorage.setItem("username", name)
       localStorage.setItem("password", password);
       setIsAuthenticated(true);
+      setShowLogin(false);
       setError("");
 
     } else {
@@ -39,7 +42,12 @@ function Login({ setShowLogin, setStoredName, data, setData, setIsAuthenticated,
     if (name && password == true) {
       setIsAuthenticated(true)
     }
+   
   }, [])
+
+
+  console.log(isAuthenticated);
+
 
   return (
     <div className='login'>
@@ -51,19 +59,13 @@ function Login({ setShowLogin, setStoredName, data, setData, setIsAuthenticated,
         </div>
 
         <div className="login-inputs">
-          <input type="text" name="name" value={data.name} onChange={handleLogin} />
-          <input type="email" name="email" value={data.email} onChange={handleLogin} />
-          <input type="password" name="password" value={data.password} onChange={handleLogin} />
+          <input type="text" name="name" value={data.name} onChange={handleLogin}placeholder='Your Name'/>
+          <input type="password" name="password" value={data.password} onChange={handleLogin}  placeholder='Your password'/>
 
         </div>
 
-        {currentState === "Login" ? (
-          <p>Create a new account? <span onClick={() => setCurrentState("Sign Up")}>Click here</span></p>
-        ) : (
-          <p>Already have an account? <span onClick={() => setCurrentState("Login")}>Login here</span></p>
-        )}
 
-        <button type="submit">Log In</button>
+        <button className='submit-button' type="submit">Log In</button>
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
 

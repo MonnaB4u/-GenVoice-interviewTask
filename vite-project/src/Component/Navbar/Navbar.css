@@ -23,7 +23,22 @@
     transition: background 0.4s, color 0.4s; 
     position: relative; 
 }
-
+.submit-button{
+    background: transparent;
+    font-size: 16px;
+    color: #49557e;
+    border: 1px solid tomato;
+    padding: 10px 30px;
+    border-radius: 50px;
+    text-decoration: none; 
+    transition: background 0.4s, color 0.4s; 
+    position: relative; 
+}
+.submit-button:hover{
+    background: linear-gradient(135deg, rgba(255, 99, 71, 0.7), rgba(255, 159, 64, 0.7));
+    color: white; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
 .navbar-right a:hover {
     background: linear-gradient(135deg, rgba(255, 99, 71, 0.7), rgba(255, 159, 64, 0.7));
     color: white; 
